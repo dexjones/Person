@@ -38,10 +38,27 @@ public class Main {
                 }
             queue.enqueue(new Person(lastN, firstN, age));
         }
-        // Display students in the queue
-        while (!queue.isEmpty()) {
-            System.out.println(queue.dequeue());
+        Person[] personArr = new Person[queue.size()];
+        queue.toArray(personArr);
+
+        // Sort by last name in descending order
+        QuickSort.quickSortDescend(personArr, 0, personArr.length - 1, Person::compareByLastName);
+        System.out.println("\nSorted by last name in descending order:");
+        for (Person person : personArr) {
+            System.out.println(person);
         }
+        // Reset the queue with original order
+        queue.fromArray(personArr);
+
+        // Sort by age in descending order
+        QuickSort.quickSortDescend(personArr, 0, personArr.length - 1, Person::compareByAge);
+        System.out.println("\nSorted by age in descending order:");
+        for (Person person : personArr) {
+            System.out.println(person);
+        }
+        // Reset the queue with sorted order by age
+        queue.fromArray(personArr);
+
         scnr.close();
     }
 }
